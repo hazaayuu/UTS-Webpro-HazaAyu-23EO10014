@@ -1,0 +1,90 @@
+@layout.app({ title: 'Register' })
+  <div class="min-h-screen bg-[#F8EDE3] py-10 px-4 sm:px-6 flex items-center justify-center">
+
+    <!-- Glassmorphism Card -->
+    <div class="w-full max-w-lg bg-[#DFD3C3]/60 backdrop-blur-md border border-[#D0B8A8]/50 rounded-2xl shadow-xl p-6 sm:p-10">
+
+      <!-- Header -->
+      <div class="text-center">
+        <h1 class="block text-2xl font-extrabold text-[#8D493A]">Register</h1>
+        <p class="mt-2 text-sm text-[#8D493A]/80">
+          Already have an account? 
+          <a class="text-[#8D493A] hover:text-[#733B2F]" href="/login">Log in</a>
+        </p>
+      </div>
+
+      <!-- Form -->
+      <form action="/register" method="post">
+        {{ csrfField() }}
+
+        <div class="space-y-4">
+          <!-- Name Input -->
+          <div>
+            <label for="name" class="block text-sm font-medium mb-2 text-[#8D493A]">Name</label>
+            <input type="text" id="name"
+              class="py-3 px-4 block w-full border-[#D0B8A8]/50 bg-[#F8EDE3]/40 text-[#8D493A] placeholder-[#8D493A]/50 rounded-lg text-sm focus:border-[#8D493A] focus:ring-[#8D493A]/30 shadow-inner backdrop-blur-sm"
+              name="name" required value="{{ old('name') || '' }}">
+
+            @inputError('name')
+              <p class="text-xs text-red-500 mt-2">{{ $messages }}</p>
+            @end
+          </div>
+
+          <!-- Username Input -->
+          <div>
+            <label for="username" class="block text-sm font-medium mb-2 text-[#8D493A]">Username</label>
+            <input type="text" id="username"
+              class="py-3 px-4 block w-full border-[#D0B8A8]/50 bg-[#F8EDE3]/40 text-[#8D493A] placeholder-[#8D493A]/50 rounded-lg text-sm focus:border-[#8D493A] focus:ring-[#8D493A]/30 shadow-inner backdrop-blur-sm"
+              name="username" required value="{{ old('username') || '' }}">
+
+            @inputError('username')
+              <p class="text-xs text-red-500 mt-2">{{ $messages }}</p>
+            @end
+          </div>
+
+          <!-- Email Input -->
+          <div>
+            <label for="email" class="block text-sm font-medium mb-2 text-[#8D493A]">Email</label>
+            <input type="email" id="email"
+              class="py-3 px-4 block w-full border-[#D0B8A8]/50 bg-[#F8EDE3]/40 text-[#8D493A] placeholder-[#8D493A]/50 rounded-lg text-sm focus:border-[#8D493A] focus:ring-[#8D493A]/30 shadow-inner backdrop-blur-sm"
+              name="email" required value="{{ old('email') || '' }}">
+
+            @inputError('email')
+              <p class="text-xs text-red-500 mt-2">{{ $messages }}</p>
+            @end
+          </div>
+
+          <!-- Password Input -->
+          <div>
+            <label for="password" class="block text-sm font-medium mb-2 text-[#8D493A]">Password</label>
+            <input type="password" id="password"
+              class="py-3 px-4 block w-full border-[#D0B8A8]/50 bg-[#F8EDE3]/40 text-[#8D493A] placeholder-[#8D493A]/50 rounded-lg text-sm focus:border-[#8D493A] focus:ring-[#8D493A]/30 shadow-inner backdrop-blur-sm"
+              name="password" required>
+
+            @inputError('password')
+              <p class="text-xs text-red-500 mt-2">{{ $messages }}</p>
+            @end
+          </div>
+
+          <!-- Password Confirmation Input -->
+          <div>
+            <label for="password_confirmation" class="block text-sm font-medium mb-2 text-[#8D493A]">Confirm password</label>
+            <input type="password" id="password_confirmation"
+              class="py-3 px-4 block w-full border-[#D0B8A8]/50 bg-[#F8EDE3]/40 text-[#8D493A] placeholder-[#8D493A]/50 rounded-lg text-sm focus:border-[#8D493A] focus:ring-[#8D493A]/30 shadow-inner backdrop-blur-sm"
+              name="password_confirmation" required>
+          </div>
+
+          <!-- Submit Button -->
+          <div>
+            <button
+              class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-[#8D493A] text-white hover:bg-[#733B2F] active:scale-[0.98] transition-all shadow-lg">
+              Register
+            </button>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+@end

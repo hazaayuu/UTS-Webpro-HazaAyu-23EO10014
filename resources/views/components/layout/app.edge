@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <title>{{ title }}</title>
+  </head>
+  <body class="bg-[#F8EDE3] min-h-screen flex flex-col">
+
+    <header class="w-full bg-white/40 backdrop-blur-lg border-b border-[#D0B8A8]/40 shadow-md">
+      <nav class="max-w-[85rem] w-full mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="/" class="text-[#8D493A] text-2xl font-bold tracking-wide">Java Rootztella</a>
+
+        <div class="flex items-center gap-4 text-sm">
+          @eval(await auth.check())
+
+          @if(auth.isAuthenticated)
+            <span class="text-[#8D493A] font-semibold">Hi, {{ auth.user.name }}</span>
+
+            <form action="/logout?_method=DELETE" method="post">
+              {{ csrfField() }}
+                <a href="/feed"
+              class="px-4 py-2 bg-[#8D493A] text-white rounded-lg hover:bg-[#72392d] transition font-medium">FEED</a>
+
+              <button
+                class="px-3 py-2 text-[#8D493A] border border-[#D0B8A8] bg-white/40 rounded-lg hover:bg-[#DFD3C3] transition">
+                Log out
+              </button>
+            </form>
+          @else
+            <a href="/login"
+              class="px-4 py-2 bg-[#8D493A] text-white rounded-lg hover:bg-[#72392d] transition font-medium">Log in</a>
+
+            <a href="/register"
+              class="px-4 py-2 bg-white/30 text-[#8D493A] border border-[#8D493A]/30 rounded-lg hover:bg-white transition font-medium">
+              Register
+            </a>
+          @end
+        </div>
+      </nav>
+    </header>
+
+    <main class="flex-grow">
+      {{{ await $slots.main() }}}
+    </main>
+
+    <footer class="bg-white/30 backdrop-blur-lg text-center py-4 text-sm text-[#8D493A]/70 border-t border-[#D0B8A8]/40">
+      &copy; 2025 Java Rootztella. All rights reserved.
+    </footer>
+  </body>
+</html>

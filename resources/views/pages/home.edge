@@ -1,0 +1,61 @@
+@layout.app({ title: 'Post feed' })
+  <div class="min-h-screen bg-[#F8EDE3] py-10 px-4 sm:px-6 flex items-start justify-center">
+
+    <!-- Glass Container -->
+    <div class="w-full max-w-2xl bg-[#DFD3C3]/60 backdrop-blur-md border border-[#D0B8A8]/50 rounded-2xl shadow-2xl p-8 sm:p-10">
+
+      <!-- Header -->
+      <div class="mb-6">
+        <h1 class="text-3xl font-extrabold text-[#8D493A]">Post Feed</h1>
+        <p class="text-sm text-[#8D493A]/70">✨ Bagikan pikiran atau inspirasi kamu hari ini</p>
+      </div>
+
+      <!-- Flash Message -->
+      @flashMessage('notification')
+        <div 
+          x-data="{ show: true }" 
+          x-show="show" 
+          x-transition 
+          class="mt-2 bg-[#F8EDE3]/70 border border-[#D0B8A8] text-sm text-[#8D493A] rounded-lg p-4 flex justify-between items-center shadow" 
+          role="alert">
+          <span>{{ $message.message }}</span>
+          <button @click="show = false" class="text-[#8D493A] hover:text-[#8D493A]/80 ml-4 text-xl leading-none font-bold">&times;</button>
+        </div>
+      @end
+
+      <!-- Post Form -->
+      <form class="space-y-4 mt-6" action="/posts" method="post">
+        {{ csrfField() }}
+
+        <div>
+          <textarea
+            class="py-3 px-4 block w-full border border-[#D0B8A8]/50 bg-[#F8EDE3]/40 text-[#8D493A] placeholder-[#8D493A]/50 rounded-xl text-sm focus:border-[#8D493A] focus:ring focus:ring-[#8D493A]/30 shadow-inner backdrop-blur-sm"
+            name="content"
+            required
+            rows="4"
+            placeholder="Tulis sesuatu yang menarik..."></textarea>
+
+          @inputError('content')
+            <p class="text-xs text-red-500 mt-2">{{ $messages }}</p>
+          @end
+        </div>
+
+        <button
+          type="submit"
+          class="py-3 px-5 inline-flex items-center gap-x-2 text-sm font-semibold rounded-xl border border-transparent bg-[#8D493A] text-white hover:bg-[#733B2F] active:scale-[0.98] transition-all shadow-lg">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+               d="M5 13l4 4L19 7"/></svg>
+          Post
+        </button>
+      </form>
+
+      <!-- Posts -->
+      <div class="mt-12 space-y-6">
+        @each(post in posts)
+          @include('pages/partials/post')
+        @end
+      </div>
+    </div>
+  </div>
+@end

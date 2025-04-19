@@ -1,0 +1,69 @@
+<div class="p-5 bg-[#DFD3C3]/60 backdrop-blur-md border border-[#D0B8A8]/40 rounded-2xl shadow-md transition duration-300 hover:shadow-lg">
+  <div class="flex items-center justify-between">
+    <a class="flex items-center space-x-2" href="{{ `/${post.user.username}` }}">
+      <div class="text-[#8D493A] font-semibold">{{ post.user.name }}</div>
+      <span class="text-[#8D493A]/70 text-sm">{{ post.user.handle }}</span>
+    </a>
+
+    @if(auth.isAuthenticated && post.user.id === auth.user.id)
+    <div class="flex items-center space-x-3">
+      <a class="text-sm text-[#8D493A]/70 hover:text-[#8D493A]" href="{{ `/posts/${post.id}/edit` }}">
+        Edit
+      </a>
+
+      <form action="{{ `/posts/${post.id}?_method=DELETE` }}" method="post">
+        {{ csrfField() }}
+        <button class="text-sm text-[#8D493A]/70 hover:text-red-500">Delete</button>
+      </form>
+    </div>
+    @end
+  </div>
+
+  <p class="mt-4 text-[#4B3832]">{{ post.content }}</p>
+
+  <div class="mt-4 flex items-center justify-between">
+    @if(auth.isAuthenticated)
+      @if(await auth.user.hasLikedPost(post.id))
+      <form action="{{ `/posts/${post.id}/likes?_method=DELETE` }}" method="post">
+        {{ csrfField() }}
+        <button class="flex items-center space-x-1 text-[#8D493A]/80 hover:text-[#8D493A] text-sm">
+          <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+          </svg>
+          <span>{{ post.$extras.likes_count }}</span>
+        </button>
+      </form>
+      @else
+      <form action="{{ `/posts/${post.id}/likes` }}" method="post">
+        {{ csrfField() }}
+        <button class="flex items-center space-x-1 text-[#8D493A]/60 hover:text-[#8D493A] text-sm">
+          <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+          </svg>
+          <span>{{ post.$extras.likes_count }}</span>
+        </button>
+      </form>
+      @end
+    @else
+    <div class="flex items-center space-x-1 text-[#8D493A]/50 text-sm">
+      <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <path
+          d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+      </svg>
+      <span>{{ post.$extras.likes_count }}</span>
+    </div>
+    @end
+
+    <div class="flex items-center space-x-2 text-sm text-[#8D493A]/60">
+      @if(post.createdAt.equals(post.updatedAt))
+      <div>{{ post.createdAt.toRelative() }}</div>
+      @else
+      <div>Edited • {{ post.updatedAt.toRelative() }}</div>
+      @end
+    </div>
+  </div>
+</div>

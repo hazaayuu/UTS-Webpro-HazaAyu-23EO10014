@@ -1,0 +1,79 @@
+@layout.app({ title: 'Welcome' })
+
+<div class="min-h-screen flex items-center justify-center bg-[#F8EDE3] px-6 py-12 relative overflow-hidden">
+  <!-- SVG Blob Background -->
+  <svg class="absolute inset-0 z-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 800" preserveaspectratio="none">
+    <path fill="#DFD3C3" d="M0,600 C200,500 400,400 600,400 C800,400 1000,500 1200,600 C1400,700 1400,800 1440,800 L0,800 Z"></path>
+  </svg>
+
+  <div class="max-w-3xl w-full bg-white/30 backdrop-blur-lg border border-[#D0B8A8]/50 rounded-2xl p-10 shadow-xl text-center animate-fade-in z-10">
+
+    <!-- Greeting title dengan emoji -->
+    <h1 class="text-4xl font-bold text-[#8D493A] mb-2 animate-fade-in-down delay-100">
+      Hey there! 👋 Welcome to Java Rootztella
+    </h1>
+
+    <!-- Sub greeting -->
+    <p class="text-[#8D493A]/80 text-base mb-2 animate-fade-in-up delay-150">
+      So glad you're here 😊
+    </p>
+
+    <!-- Deskripsi utama -->
+    <p class="text-[#4B3832]/80 text-lg mb-6 animate-fade-in-up delay-200">
+      A cozy place to share your thoughts and connect with like-minded people. 
+      Join the conversation today and be part of our growing community 💬🌱
+    </p>
+
+    <div class="flex justify-center space-x-4 animate-fade-in-up delay-300">
+      <a href="
+        @if(auth.isAuthenticated)
+        /feed
+        @else
+        /login
+        @end
+      "
+        class="px-6 py-3 bg-[#8D493A] text-white text-sm font-medium rounded-lg shadow hover:bg-[#72392d] transition duration-200">
+        Get Started 🚀
+      </a>
+    </div>
+
+    <div class="mt-10">
+      <!-- Tambahan ilustrasi atau elemen visual opsional -->
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes fade-in {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes fade-in-down {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out both;
+  }
+
+  .animate-fade-in-down {
+    animation: fade-in-down 0.6s ease-out both;
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out both;
+  }
+
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-150 { animation-delay: 0.15s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+</style>
+@end

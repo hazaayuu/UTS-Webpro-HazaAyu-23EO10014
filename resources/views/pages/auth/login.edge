@@ -1,0 +1,64 @@
+@layout.app({ title: 'Log in' })
+  <div class="min-h-screen bg-[#F8EDE3] py-10 px-4 sm:px-6 flex items-center justify-center">
+
+    <!-- Glassmorphism Card -->
+    <div class="w-full max-w-lg bg-[#DFD3C3]/60 backdrop-blur-md border border-[#D0B8A8]/50 rounded-2xl shadow-xl p-6 sm:p-10">
+
+      <!-- Header -->
+      <div class="text-center">
+        <h1 class="block text-2xl font-extrabold text-[#8D493A]">Log in</h1>
+        <p class="mt-2 text-sm text-[#8D493A]/80">
+          Don't have an account yet? 
+          <a class="text-[#8D493A] hover:text-[#733B2F]" href="/register">Register</a>
+        </p>
+      </div>
+
+      <!-- Flash Message -->
+      @flashMessage('notification')
+        <div class="mt-2 bg-red-100 border border-red-200 text-sm text-red-800 rounded-lg p-4" role="alert">
+          {{ $message.message }}
+        </div>
+      @end
+
+      <!-- Form -->
+      <form action="/login" method="post">
+        {{ csrfField() }}
+
+        <div class="space-y-4">
+          <!-- Email Input -->
+          <div>
+            <label for="email" class="block text-sm font-medium mb-2 text-[#8D493A]">Email</label>
+            <input type="email" id="email"
+              class="py-3 px-4 block w-full border-[#D0B8A8]/50 bg-[#F8EDE3]/40 text-[#8D493A] placeholder-[#8D493A]/50 rounded-lg text-sm focus:border-[#8D493A] focus:ring-[#8D493A]/30 shadow-inner backdrop-blur-sm"
+              name="email" required value="{{ old('email') || '' }}">
+
+            @inputError('email')
+              <p class="text-xs text-red-500 mt-2">{{ $messages }}</p>
+            @end
+          </div>
+
+          <!-- Password Input -->
+          <div>
+            <label for="password" class="block text-sm font-medium mb-2 text-[#8D493A]">Password</label>
+            <input type="password" id="password"
+              class="py-3 px-4 block w-full border-[#D0B8A8]/50 bg-[#F8EDE3]/40 text-[#8D493A] placeholder-[#8D493A]/50 rounded-lg text-sm focus:border-[#8D493A] focus:ring-[#8D493A]/30 shadow-inner backdrop-blur-sm"
+              name="password" required>
+
+            @inputError('password')
+              <p class="text-xs text-red-500 mt-2">{{ $messages }}</p>
+            @end
+          </div>
+
+          <!-- Submit Button -->
+          <div>
+            <button
+              class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-[#8D493A] text-white hover:bg-[#733B2F] active:scale-[0.98] transition-all shadow-lg">
+              Log in
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+@end
