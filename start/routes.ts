@@ -1,11 +1,4 @@
-/*
-|--------------------------------------------------------------------------
-| Routes file
-|--------------------------------------------------------------------------
-|
-| The routes file is used for defining the HTTP routes.
-|
-*/
+
 
 const RegisterController = () => import('#controllers/register_controller')
 const AuthController = () => import('#controllers/auth_controller')
